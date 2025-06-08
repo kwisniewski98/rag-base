@@ -1,5 +1,10 @@
 app: rag-base
 
+dataScienceProjectDisplayName: rag-base
+dataScienceProjectNamespace: rag-base
+
+instanceName: rag-base
+
 argocdNamespace: openshift-gitops
 
 vcs:
@@ -91,95 +96,6 @@ models:
       min: '1'
       productName: NVIDIA-A10G
 
-# modelApplication:
-#   name: doc-bot-model
-#   repoURL: https://github.com/alpha-hack-program/model-serving-utils.git
-#   path: gitops/model
-#   targetRevision: main
-#   model:
-#     root: mistralai
-#     id: Mistral-7B-Instruct-v0.2
-#     name: mistral-7b
-#     displayName: Mistral 7b
-#     maxReplicas: 1
-#     enableAuth: false
-#     rawDeployment: false
-#     runtime:
-#       templateName: vllm-serving-template
-#       templateDisplayName: vLLM Serving Template
-#       image: quay.io/modh/vllm:rhoai-2.20-cuda
-#       resources:
-#         limits:
-#           cpu: '8'
-#           memory: 24Gi
-#         requests:
-#           cpu: '6'
-#           memory: 24Gi
-#     accelerator:
-#       max: '1'
-#       min: '1'
-#       productName: NVIDIA-A10G
-#     connection:
-#       name: llm
-#       createSecret: true
-#       displayName: LLM
-#       type: s3
-#       scheme: http
-#       awsAccessKeyId: minio
-#       awsSecretAccessKey: minio123
-#       awsDefaultRegion: none
-#       awsS3Bucket: models
-#       awsS3Endpoint: minio.ic-shared-minio.svc:9000
-#     volumes:
-#       shm:
-#         sizeLimit: 2Gi
-
-# embeddingsApplication:
-#   name: doc-bot-embeddings
-#   repoURL: https://github.com/alpha-hack-program/model-serving-utils.git
-#   path: gitops/model
-#   targetRevision: main
-#   model:
-#     root: intfloat
-#     id: multilingual-e5-large
-#     name: multilingual-e5-large-gpu
-#     displayName: multilingual-e5-large GPU
-#     maxReplicas: 1
-#     format: vLLM
-#     maxModelLen: '512'
-#     apiProtocol: REST
-#     enableAuth: false
-#     rawDeployment: true
-#     runtime:
-#       templateName: vllm-serving-template
-#       templateDisplayName: vLLM Serving Template
-#       image: quay.io/modh/vllm:rhoai-2.20-cuda
-#       resources:
-#         limits:
-#           cpu: '2'
-#           memory: 8Gi
-#         requests:
-#           cpu: '1'
-#           memory: 4Gi
-#     accelerator:
-#       max: '1'
-#       min: '1'
-#       productName: NVIDIA-A10G
-#     connection:
-#       name: embeddings-svc
-#       createSecret: true
-#       displayName: embeddings-svc
-#       type: s3
-#       scheme: http
-#       awsAccessKeyId: minio
-#       awsSecretAccessKey: minio123
-#       awsDefaultRegion: none
-#       awsS3Bucket: models
-#       awsS3Endpoint: minio.ic-shared-minio.svc:9000
-#     volumes:
-#       shm:
-#         sizeLimit: 2Gi
-
 milvusApplication:
   name: milvus
   path: gitops/milvus
@@ -194,11 +110,6 @@ routerApplication:
   name: router
   path: gitops/rag-router
   targetRevision: main
-
-dataScienceProjectDisplayName: rag-base
-dataScienceProjectNamespace: rag-base
-
-instanceName: rag-base
 
 documentsConnection:
   name: documents
@@ -238,8 +149,5 @@ milvus:
   port: '19530'
   host: vectordb-milvus
   database: default
-
-setup:
-  image: quay.io/atarazana/hf-cli:latest
 
 mountCaCerts: "false"

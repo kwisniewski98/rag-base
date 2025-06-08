@@ -23,8 +23,6 @@ spec:
           value: {{ .Values.argocdNamespace }}
         - name: createNamespace
           value: "false"
-        - name: instanceName
-          value: "{{ .Values.model.name }}"
         - name: dataScienceProjectNamespace
           value: "{{ .Values.dataScienceProjectNamespace }}"
         - name: dataScienceProjectDisplayName

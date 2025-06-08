@@ -2,18 +2,9 @@
 ARGOCD_APP_NAME=pipelines
 
 # Load environment variables
-DATA_SCIENCE_PROJECT_NAMESPACE="vllm-mistral-7b-instruct-v0.2"
+DATA_SCIENCE_PROJECT_NAMESPACE="pipelines"
 
 helm template . --name-template ${ARGOCD_APP_NAME} \
-  --set instanceName="vllm-mistral-7b" \
   --set dataScienceProjectNamespace=${DATA_SCIENCE_PROJECT_NAMESPACE} \
   --set dataScienceProjectDisplayName=${DATA_SCIENCE_PROJECT_NAMESPACE} \
-  --set model.root=mistralai \
-  --set model.id=Mistral-7B-Instruct-v0.2 \
-  --set model.name=mistral-7b \
-  --set model.displayName="Mistral 7b" \
-  --set model.accelerator.productName="NVIDIA-A10G" \
-  --set model.accelerator.min=1 \
-  --set model.accelerator.max=1 \
-  --set mountCaCerts="true" \
   --include-crds

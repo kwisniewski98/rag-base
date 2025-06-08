@@ -13,7 +13,7 @@ pipelinesServiceAccountName: build-bot-sa
 dataScienceProjectDisplayName: vllm-mistral-7b
 dataScienceProjectNamespace: vllm-mistral-7b
 
-instanceName: vllm-mistral-7b
+# instanceName: vllm-mistral-7b
 
 createNamespace: true
 

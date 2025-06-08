@@ -1,0 +1,84 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-webui
+  namespace: argocd
+spec:
+  project: kubito-infrastructure
+  source:
+    repoURL: 'https://helm.openwebui.com'
+    targetRevision: 3.6.0
+    chart: open-webui
+    helm:
+      values: |
+        ollama:
+          enabled: false
+
+        pipelines:
+          enabled: false
+
+        tika:
+          enabled: false
+
+        # persistence section
+        persistence:
+          enabled: true
+          size: 2Gi
+          accessModes:
+            - ReadWriteOnce
+
+        extraEnvVars:
+          # oidc login only section
+          - name: ENABLE_SIGNUP
+            value: "false"
+          - name: ENABLE_LOGIN_FORM
+            value: "false"
+          - name: ADMIN_EMAIL
+            value: "nushkovg@kubito.dev"
+          - name: OAUTH_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: open-webui-secret
+                key: oidc-client-id
+          - name: OAUTH_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: open-webui-secret
+                key: oidc-client-secret
+          - name: OAUTH_SCOPES
+            value: "openid profile email"
+          - name: ENABLE_OAUTH_SIGNUP
+            value: "true"
+          - name: OPENID_PROVIDER_URL
+            value: "https://sso.kubito.example/realms/kubito/.well-known/openid-configuration"
+
+          # openrouter with existing secret section
+          - name: ENABLE_OPENAI_API
+            value: "true"
+          - name: OPENAI_API_BASE_URL
+            value: "https://openrouter.ai/api/v1"
+          - name: OPENAI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: open-webui-secret
+                key: open-router-api-key
+
+           # web search with searxng section
+          - name: ENABLE_RAG_WEB_SEARCH
+            value: "true"
+          - name: RAG_WEB_SEARCH_ENGINE
+            value: "searxng"
+          - name: RAG_WEB_SEARCH_RESULT_COUNT
+            value: "3"
+          - name: RAG_WEB_SEARCH_CONCURRENT_REQUESTS
+            value: "10"
+          - name: SEARXNG_QUERY_URL
+            value: "http://searxng:8080/search?q=<query>"        
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: open-webui
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
