@@ -150,4 +150,7 @@ milvus:
   host: vectordb-milvus
   database: default
 
+setup:
+  image: quay.io/atarazana/hf-cli:latest
+  
 mountCaCerts: "false"
