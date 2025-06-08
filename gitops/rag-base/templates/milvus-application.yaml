@@ -14,10 +14,10 @@ spec:
     path: "{{ .Values.milvusApplication.path }}"
     helm:
       values: |
-        app: milvus
-        partOf: rag-base
+        app: {{ .Values.milvusApplication.name }}
+        partOf: {{ .Values.app }}
         argocdNamespace: {{ .Values.argocdNamespace }}
-        milvusNamespace: milvus
+        milvusNamespace: "{{ .Values.dataScienceProjectNamespace }}"
 
   syncPolicy:
     automated:
