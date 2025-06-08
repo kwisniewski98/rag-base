@@ -4,7 +4,7 @@ apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
     openshift.io/display-name: "{{ .displayName }}"
     security.opendatahub.io/enable-auth: '{{ default false .enableAuth }}'
     {{- if default true .rawDeployment }}
@@ -107,7 +107,7 @@ apiVersion: serving.kserve.io/v1alpha1
 kind: ServingRuntime
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
     opendatahub.io/accelerator-name: migrated-gpu
     opendatahub.io/apiProtocol: {{ default "REST" .apiProtocol }}
     opendatahub.io/template-display-name: "{{ .runtime.templateDisplayName }}"
