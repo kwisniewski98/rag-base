@@ -29,10 +29,10 @@ roleRef:
   kind: ClusterRole
   name: pipelines-scc-clusterrole
 ---
-kind: ClusterRoleBinding
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: openshift-pipelines-clusterinterceptors-{{ .Values.pipelinesServiceAccountName }}-clusterrolebinding
+  name: openshift-pipelines-clusterinterceptors-{{ .Values.pipelinesServiceAccountName }}-{{ .Values.dataScienceProjectNamespace }}-rolebinding
   namespace: {{ .Values.dataScienceProjectNamespace }}
 subjects:
   - kind: ServiceAccount
@@ -58,9 +58,9 @@ roleRef:
   name: edit
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: pipelines-argocd-sync-clusterrole
+  name: pipelines-argocd-sync-role
   namespace: {{ .Values.dataScienceProjectNamespace }}
 rules:
   ##
@@ -105,6 +105,6 @@ subjects:
     namespace: {{ .Values.dataScienceProjectNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: pipelines-argocd-sync-clusterrole
+  kind: Role
+  name: pipelines-argocd-sync-role
 
