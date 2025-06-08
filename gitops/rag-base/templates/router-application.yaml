@@ -28,7 +28,7 @@ spec:
         {{- range .Values.models }}
           - name: {{ .name }}
             url: http://{{ .name }}-predictor:8080/v1/chat/completions
-            model: {{ .model }}
+            model: {{ .name }}
             api_key: ""
         {{- end }}
         
@@ -36,7 +36,7 @@ spec:
         {{- range .Values.embeddings }}
           - name: {{ .name }}
             url: http://{{ .name }}-predictor:8080/v1/embeddings
-            model: {{ .model }}
+            model: {{ .name }}
             api_key: ""
         {{- end }}
 
