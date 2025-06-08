@@ -14,9 +14,9 @@ spec:
     server: 'https://kubernetes.default.svc'
     namespace: "{{ .Values.dataScienceProjectNamespace }}"
   source:
+    repoURL: "{{ .Values.vcs.uri }}"
+    targetRevision: "{{ .Values.vcs.ref }}"
     path: "{{ .Values.pipelinesApplication.path }}"
-    repoURL: "{{ .Values.pipelinesApplication.repoURL }}"
-    targetRevision: "{{ .Values.pipelinesApplication.targetRevision }}"
     helm:
       parameters:
         - name: argocdNamespace
