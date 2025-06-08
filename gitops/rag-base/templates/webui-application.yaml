@@ -4,7 +4,10 @@ metadata:
   name: open-webui
   namespace: {{ .Values.argocdNamespace }}
 spec:
-  project: kubito-infrastructure
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: {{ .Values.dataScienceProjectNamespace }}
   source:
     repoURL: 'https://helm.openwebui.com'
     targetRevision: 3.6.0
@@ -74,9 +77,7 @@ spec:
             value: "10"
           - name: SEARXNG_QUERY_URL
             value: "http://searxng:8080/search?q=<query>"        
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: open-webui
+  
   syncPolicy:
     automated:
       selfHeal: true
