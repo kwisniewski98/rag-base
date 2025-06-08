@@ -1,0 +1,32 @@
+argocdNamespace: openshift-gitops
+
+vcs:
+  uri: https://github.com/alpha-hack-program/doc-bot.git
+  ref: main
+  name: alpha-hack-program/doc-bot
+
+gitSslVerify: true
+
+# gitPatSecretName: git-pat-tk-secret
+pipelinesServiceAccountName: build-bot-sa
+
+dataScienceProjectDisplayName: vllm-mistral-7b
+dataScienceProjectNamespace: vllm-mistral-7b
+
+instanceName: vllm-mistral-7b
+
+createNamespace: true
+
+kfpUpsertTektonPipelineName: kfp-upsert-pl
+
+pipelinesWorkspaceDefaultSize: 2Gi
+
+pythonImage:
+  version: "3.9"
+  name: "python"
+  tag: "3.9-ubi8"
+
+mountCaCerts: "false"
+
+setup:
+  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest

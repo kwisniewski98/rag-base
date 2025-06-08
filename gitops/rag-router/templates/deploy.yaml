@@ -1,0 +1,162 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/compare-options: >
+      ContainerImage:
+        ignoreDifferences: |
+          jsonPointers:
+            - /spec/template/spec/containers/*/image
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: "false"
+    app.openshift.io/vcs-ref: {{ .Values.vcs.ref }}
+    app.openshift.io/vcs-uri: {{ .Values.vcs.uri }}
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ .Values.app }}:latest","namespace":"{{ .Values.namespace }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ .Values.app }}\")].image","pause":"false"}]'
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: {{ .Values.app }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app }}
+        deployment: {{ .Values.app }}
+    spec:
+      serviceAccountName: {{ .Values.app }}
+      containers:
+        - envFrom:
+            - secretRef:
+                name: {{ .Values.app }}-env
+          image: image-registry.openshift-image-registry.svc:5000/{{ .Values.namespace }}/{{ .Values.app }}:latest
+          imagePullPolicy: Always
+          name: {{ .Values.app }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - name: {{ .Values.app }}-model-map
+              mountPath: {{ .Values.workingDir }}/data/model_map.json
+              subPath: model_map.json
+            - name: {{ .Values.app }}-embeddings-map
+              mountPath: {{ .Values.workingDir }}/data/embeddings_map.json
+              subPath: embeddings_map.json
+            - name: {{ .Values.app }}-prompts
+              mountPath: {{ .Values.workingDir }}/prompts
+            {{- if .Values.mountCaCerts }}
+            - name: {{ .Values.app }}-cacerts
+              mountPath: /opt/app-root/lib/python{{ .Values.python }}/site-packages/certifi/cacert.pem
+              subPath: cacert.pem
+            {{- end }}
+      volumes:
+        - name: {{ .Values.app }}-model-map
+          secret:
+            secretName: {{ .Values.app }}-model-map
+            items:
+              - key: model_map.json
+                path: model_map.json
+            defaultMode: 420
+        - name: {{ .Values.app }}-embeddings-map
+          secret:
+            secretName: {{ .Values.app }}-embeddings-map
+            items:
+              - key: embeddings_map.json
+                path: embeddings_map.json
+            defaultMode: 420
+        - name: {{ .Values.app }}-prompts
+          configMap:
+            name: {{ .Values.app }}-prompts
+            defaultMode: 420
+        {{- if .Values.mountCaCerts }}
+        - name: {{ .Values.app }}-cacerts
+          configMap:
+            name: {{ .Values.app }}-cacerts
+            items:
+              - key: cacert.pem
+                path: cacert.pem
+            defaultMode: 420
+        {{- end }}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: {{ .Values.vcs.ref }}
+    app.openshift.io/vcs-uri: {{ .Values.vcs.uri }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: 7860-tcp
+      port: 7860
+      protocol: TCP
+      targetPort: 7860
+  selector:
+    app: {{ .Values.app }}
+    deployment: {{ .Values.app }}
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  port:
+    targetPort: 7860-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ .Values.app }}
+    weight: 100
+  wildcardPolicy: None

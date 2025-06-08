@@ -1,0 +1,5 @@
+apiVersion: v2
+name: rag-base
+description: A Helm chart to deploy a RAG base application for document processing and retrieval.
+version: 0.1.0
+appVersion: "1.0"

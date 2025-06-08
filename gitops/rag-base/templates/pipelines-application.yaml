@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.pipelinesApplication.name }}
+  namespace: {{ .Values.argocdNamespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app.kubernetes.io/part-of: {{ .Values.app }}
+spec:
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: "{{ .Values.dataScienceProjectNamespace }}"
+  source:
+    path: "{{ .Values.pipelinesApplication.path }}"
+    repoURL: "{{ .Values.pipelinesApplication.repoURL }}"
+    targetRevision: "{{ .Values.pipelinesApplication.targetRevision }}"
+    helm:
+      parameters:
+        - name: argocdNamespace
+          value: {{ .Values.argocdNamespace }}
+        - name: createNamespace
+          value: "false"
+        - name: instanceName
+          value: "{{ .Values.model.name }}"
+        - name: dataScienceProjectNamespace
+          value: "{{ .Values.dataScienceProjectNamespace }}"
+        - name: dataScienceProjectDisplayName
+          value: "{{ .Values.dataScienceProjectDisplayName }}"
+        - name: vcs.uri
+          value: "{{ .Values.vcs.uri }}"
+        - name: vcs.ref
+          value: "{{ .Values.vcs.ref }}"
+        - name: vcs.name
+          value: "{{ .Values.vcs.name }}"
+        - name: mountCaCerts
+          value: "{{ .Values.mountCaCerts }}"
+  syncPolicy:
+    automated:
+      # prune: true
+      selfHeal: true
+  ignoreDifferences:
+    - group: ""
+      kind: PersistentVolumeClaim
+      jsonPointers:
+        - /status

@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.routerApplication.name }}
+  namespace: {{ .Values.argocdNamespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app.kubernetes.io/part-of: {{ .Values.app }}
+spec:
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: "{{ .Values.dataScienceProjectNamespace }}"
+  source:
+    repoURL: "{{ .Values.vcs.uri }}"
+    targetRevision: "{{ .Values.vcs.ref }}"
+    path: "{{ .Values.routerApplication.path }}"
+    helm:
+      values: |
+        partOf: {{ .Values.app }}
+        argocdNamespace: {{ .Values.argocdNamespace }}
+        createNamespace: false
+        namespace: {{ .Values.dataScienceProjectNamespace }}
+
+        models:
+        {{- range .Values.models }}
+          - name: {{ .name }}
+            url: http://{{ .name }}-instruct/v1/chat/completions
+            model: {{ .model }}
+            api_key: ""
+        {{- end }}
+        
+        embeddings:
+        {{- range .Values.embeddings }}
+          - name: {{ .name }}
+            url: http://{{ .name }}-predictor/v1/embeddings
+            model: {{ .model }}
+            api_key: ""
+        {{- end }}
+
+        milvus:
+          name: {{ .Values.milvus.name }}
+          namespace: {{ .Values.milvus.namespace }}
+          username: {{ .Values.milvus.username }}
+          password: {{ .Values.milvus.password }}
+          port: {{ .Values.milvus.port }}
+          host: {{ .Values.milvus.host }}
+        mountCaCerts: {{ .Values.mountCaCerts }}
+  syncPolicy:
+    automated:
+      selfHeal: true

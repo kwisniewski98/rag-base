@@ -1,0 +1,16 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: milvus-connection-{{ .Values.documentsMilvusConnection.name }}
+  namespace: {{ .Values.dataScienceProjectNamespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Values.app }}
+stringData:
+  MILVUS_HOST: '{{ .Values.milvus.host }}'
+  MILVUS_PORT: '{{ .Values.milvus.port }}'
+  MILVUS_USERNAME: '{{ .Values.milvus.username }}'
+  MILVUS_PASSWORD: '{{ .Values.milvus.password }}'
+  MILVUS_COLLECTION_NAME: '{{ .Values.documentsMilvusConnection.collectionName }}'
+  MILVUS_DATABASE: '{{ .Values.milvus.database }}'
+  
+type: Opaque

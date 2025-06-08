@@ -1,0 +1,5 @@
+apiVersion: v2
+name: rag-router
+description: A Helm chart to deploy rag-router using RHOAI
+version: 0.1.0
+appVersion: "1.0"

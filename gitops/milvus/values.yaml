@@ -1,0 +1,4 @@
+app: milvus
+partOf: rag-base
+argocdNamespace: openshift-gitops
+milvusNamespace: milvus

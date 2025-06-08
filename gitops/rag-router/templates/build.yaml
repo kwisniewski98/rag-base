@@ -1,0 +1,110 @@
+---
+apiVersion: v1
+data:
+  WebHookSecretKey: ZmIzNGU3NTUyNDE3OTM1Zg==
+kind: Secret
+metadata:
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}-generic-webhook-secret
+  namespace: {{ .Values.namespace }}
+type: Opaque
+---
+apiVersion: v1
+data:
+  WebHookSecretKey: N2E5MTA3ZTY0MzQ5MzM0NQ==
+kind: Secret
+metadata:
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}-github-webhook-secret
+  namespace: {{ .Values.namespace }}
+type: Opaque
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: {{ .Values.vcs.ref }}
+    app.openshift.io/vcs-uri: {{ .Values.vcs.uri }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  lookupPolicy:
+    local: false
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: {{ .Values.vcs.ref }}
+    app.openshift.io/vcs-uri: {{ .Values.vcs.uri }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/component: {{ .Values.app }}
+    app.kubernetes.io/instance: {{ .Values.app }}
+    app.kubernetes.io/name: {{ .Values.app }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: '{{ .Values.baseImage.version }}'
+  name: {{ .Values.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  failedBuildsHistoryLimit: 5
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ .Values.app }}:latest
+  runPolicy: Serial
+  source:
+    {{- if .Values.vcs.sourceSecret }}
+    sourceSecret:
+      name: {{ .Values.vcs.sourceSecret }}
+    {{- end }}
+    contextDir: {{ .Values.vcs.path }}
+    git:
+      uri: {{ .Values.vcs.uri }}
+      ref: {{ .Values.vcs.ref }}
+    type: Git
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Containerfile
+      buildArgs:
+        - name: BASE_IMAGE
+          value: "{{ .Values.baseImage.name }}:{{ .Values.baseImage.tag }}"
+        - name: COMPONENT_NAME
+          value: {{ .Values.app }}
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - generic:
+        secretReference:
+          name: {{ .Values.app }}-generic-webhook-secret
+      type: Generic
+    - github:
+        secretReference:
+          name: {{ .Values.app }}-github-webhook-secret
+      type: GitHub
+    - imageChange: {}
+      type: ImageChange
+    - type: ConfigChange
