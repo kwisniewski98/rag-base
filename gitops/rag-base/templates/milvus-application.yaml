@@ -9,13 +9,16 @@ spec:
     server: 'https://kubernetes.default.svc'
     namespace: "{{ .Values.dataScienceProjectNamespace }}"
   source:
-    repoURL: "{{ .Values.milvusApplication.repoURL }}"
-    targetRevision: "{{ .Values.milvusApplication.targetRevision }}"
+    repoURL: "{{ .Values.vcs.uri }}"
+    targetRevision: "{{ .Values.vcs.ref }}"
     path: "{{ .Values.milvusApplication.path }}"
     helm:
-      parameters:
-        - name: milvusNamespace
-          value: "{{ .Values.dataScienceProjectNamespace }}"
+      values: |
+        app: milvus
+        partOf: rag-base
+        argocdNamespace: {{ .Values.argocdNamespace }}
+        milvusNamespace: milvus
+
   syncPolicy:
     automated:
       # prune: true
