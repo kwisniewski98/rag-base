@@ -133,6 +133,11 @@ pipelinesConnection:
   awsS3Bucket: pipelines
   awsS3Endpoint: minio.ic-shared-minio.svc:9000
 
+webuiApplication:
+  name: webui
+  #OPENAI_API_BASE_URL
+  openaiApiBaseUrl: https://openrouter.ai/api/v1
+
 minio:
   name: minio
   namespace: ic-shared-minio
@@ -152,5 +157,5 @@ milvus:
 
 setup:
   image: quay.io/atarazana/hf-cli:latest
-  
+
 mountCaCerts: "false"
