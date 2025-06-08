@@ -21,6 +21,7 @@ metadata:
     chart: minio-8.0.17
     release: vectordb
     heritage: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 type: Opaque
 data:
   accesskey: "bWluaW9hZG1pbg=="
@@ -37,6 +38,7 @@ metadata:
     chart: minio-8.0.17
     release: vectordb
     heritage: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 data:
   initialize: |-
     #!/bin/sh
@@ -138,6 +140,8 @@ kind: ConfigMap
 metadata:
   name: vectordb-milvus
   namespace: {{ .Values.milvusNamespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 data:
   default.yaml: "# Copyright (C) 2019-2021 Zilliz. All rights reserved.\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance\n# with the License. You may obtain a copy of the License at\n#\n# http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software distributed under the License\n# is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express\n# or implied. See the License for the specific language governing permissions and limitations under the License.\n\netcd:\n  endpoints:\n    - vectordb-etcd:2379\n\nmetastore:\n  type: etcd\n\nminio:\n  address: vectordb-minio\n  port: 9000\n  accessKeyID: minioadmin\n  secretAccessKey: minioadmin\n  useSSL: false\n  bucketName: milvus-bucket\n  rootPath: file\n  useIAM: false\n  iamEndpoint: \n  region: \n  useVirtualHost: false\n\nmq:\n  type: rocksmq\n\nmessageQueue: rocksmq\n\nrootCoord:\n  address: localhost\n  port: 53100\n  enableActiveStandby: false  # Enable rootcoord active-standby\n\nproxy:\n  port: 19530\n  internalPort: 19529\n\nqueryCoord:\n  address: localhost\n  port: 19531\n\n  enableActiveStandby: false  # Enable querycoord active-standby\n\nqueryNode:\n  port: 21123\n  enableDisk: true # Enable querynode load disk index, and search on disk index\n\nindexCoord:\n  address: localhost\n  port: 31000\n  enableActiveStandby: false  # Enable indexcoord active-standby\n\nindexNode:\n  port: 21121\n  enableDisk: true # Enable index node build disk vector index\n\ndataCoord:\n  address: localhost\n  port: 13333\n  enableActiveStandby: false  # Enable datacoord active-standby\n\ndataNode:\n  port: 21124\n\nlog:\n  level: info\n  file:\n    rootPath: \"\"\n    maxSize: 300\n    maxAge: 10\n    maxBackups: 20\n  format: text\n"
   user.yaml: |-
@@ -171,6 +175,7 @@ metadata:
     chart: minio-8.0.17
     release: vectordb
     heritage: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   accessModes:
     - "ReadWriteOnce"
@@ -192,6 +197,7 @@ metadata:
     app.kubernetes.io/instance: vectordb
     app.kubernetes.io/version: "2.4.4"
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   accessModes:
     - "ReadWriteOnce"
@@ -210,6 +216,7 @@ metadata:
     helm.sh/chart: etcd-6.3.3
     app.kubernetes.io/instance: vectordb
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
 spec:
@@ -238,7 +245,7 @@ metadata:
     helm.sh/chart: etcd-6.3.3
     app.kubernetes.io/instance: vectordb
     app.kubernetes.io/managed-by: Helm
-  annotations:
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   type: ClusterIP
   ports:
@@ -265,6 +272,7 @@ metadata:
     chart: minio-8.0.17
     release: vectordb
     heritage: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   type: ClusterIP
   ports:
@@ -289,6 +297,7 @@ metadata:
     app.kubernetes.io/version: "2.4.4"
     app.kubernetes.io/managed-by: Helm
     component: "standalone"
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   type: ClusterIP
   ports:
@@ -316,6 +325,7 @@ metadata:
     chart: minio-8.0.17
     release: vectordb
     heritage: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   strategy:
     type: RollingUpdate
@@ -418,6 +428,7 @@ metadata:
     app.kubernetes.io/version: "2.4.4"
     app.kubernetes.io/managed-by: Helm
     component: "standalone"
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
   annotations:
 spec:
   replicas: 1
@@ -520,6 +531,7 @@ metadata:
     helm.sh/chart: etcd-6.3.3
     app.kubernetes.io/instance: vectordb
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   replicas: 1
   selector:

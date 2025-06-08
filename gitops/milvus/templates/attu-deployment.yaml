@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.milvusNamespace }}
   labels:
     app: attu
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   type: ClusterIP
   ports:
@@ -22,6 +23,7 @@ metadata:
   namespace: {{ .Values.milvusNamespace }}
   labels:
     app: attu
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   replicas: 1
   selector:
@@ -51,6 +53,7 @@ metadata:
   namespace: {{ .Values.milvusNamespace }}
   labels:
     app: attu
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
 spec:
   to:
     kind: Service
