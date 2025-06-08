@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: open-webui
   namespace: {{ .Values.argocdNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   project: default
   destination:
