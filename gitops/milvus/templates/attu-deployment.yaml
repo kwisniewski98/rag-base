@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: attu-svc
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: attu
     app.kubernetes.io/part-of: {{ .Values.partOf }}
@@ -20,7 +20,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: attu
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: attu
     app.kubernetes.io/part-of: {{ .Values.partOf }}
@@ -50,7 +50,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: attu
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: attu
     app.kubernetes.io/part-of: {{ .Values.partOf }}

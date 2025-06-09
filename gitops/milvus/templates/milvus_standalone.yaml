@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: "vectordb-minio"
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: minio
     chart: minio-8.0.17
@@ -15,7 +15,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: vectordb-minio
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: minio
     chart: minio-8.0.17
@@ -31,7 +31,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   name: vectordb-minio
   labels:
     app: minio
@@ -139,7 +139,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: vectordb-milvus
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/part-of: {{ .Values.partOf }}
 data:
@@ -167,7 +167,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: vectordb-minio
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   annotations:
     helm.sh/resource-policy: keep
   labels:
@@ -188,7 +188,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: vectordb-milvus
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   annotations:
     helm.sh/resource-policy: keep
   labels:
@@ -210,7 +210,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vectordb-etcd-headless
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: etcd
     helm.sh/chart: etcd-6.3.3
@@ -239,7 +239,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vectordb-etcd
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: etcd
     helm.sh/chart: etcd-6.3.3
@@ -266,7 +266,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vectordb-minio
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: minio
     chart: minio-8.0.17
@@ -289,7 +289,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vectordb-milvus
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     helm.sh/chart: milvus-4.1.33
     app.kubernetes.io/name: milvus
@@ -319,7 +319,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vectordb-minio
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: minio
     chart: minio-8.0.17
@@ -420,7 +420,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vectordb-milvus-standalone
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     helm.sh/chart: milvus-4.1.33
     app.kubernetes.io/name: milvus
@@ -525,7 +525,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: vectordb-etcd
-  namespace: {{ .Values.milvusNamespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: etcd
     helm.sh/chart: etcd-6.3.3
