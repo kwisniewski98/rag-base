@@ -81,7 +81,10 @@ spec:
     sourceSecret:
       name: {{ .Values.vcs.sourceSecret }}
     {{- end }}
-    contextDir: {{ .Values.vcs.path }}
+    {{- $contextPath := .Values.vcs.path | default "." }}
+    {{- if ne $contextPath "." }}
+    contextDir: {{ $contextPath }}
+    {{- end }}
     git:
       uri: {{ .Values.vcs.uri }}
       ref: {{ .Values.vcs.ref }}
