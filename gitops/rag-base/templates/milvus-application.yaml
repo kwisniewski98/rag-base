@@ -20,6 +20,7 @@ spec:
         partOf: {{ .Values.app }}
         argocdNamespace: {{ .Values.argocdNamespace }}
         createNamespace: false
+        namespace: {{ .Values.dataScienceProjectNamespace }}
   syncPolicy:
     automated:
       # prune: true

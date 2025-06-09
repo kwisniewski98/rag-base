@@ -41,3 +41,12 @@ models:
     url: https://llama-3-1-8b-instruct-predictor:8080/v1/chat/completions
     model: meta-llama/Llama-3.1-8B-Instruct
     api_key: ""
+
+milvus:
+  name: milvus
+  username: root
+  password: Milvus
+  port: '19530'
+  host: vectordb-milvus
+  database: default
+  collectionName: document-chunks

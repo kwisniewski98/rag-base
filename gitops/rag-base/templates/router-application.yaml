@@ -43,11 +43,12 @@ spec:
 
         milvus:
           name: {{ .Values.milvus.name }}
-          namespace: {{ .Values.milvus.namespace }}
+          namespace: {{ .Values.dataScienceProjectNamespace }}
           username: {{ .Values.milvus.username }}
           password: {{ .Values.milvus.password }}
           port: {{ .Values.milvus.port }}
           host: {{ .Values.milvus.host }}
+          collectionName: {{ .Values.milvus.collectionName }}
         mountCaCerts: {{ .Values.mountCaCerts }}
   syncPolicy:
     automated:

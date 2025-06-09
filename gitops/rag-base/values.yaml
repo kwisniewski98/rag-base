@@ -148,12 +148,12 @@ documentsMilvusConnection:
 
 milvus:
   name: milvus
-  namespace: milvus
   username: root
   password: Milvus
   port: '19530'
   host: vectordb-milvus
   database: default
+  collectionName: document-chunks
 
 setup:
   image: quay.io/atarazana/hf-cli:latest
