@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.routerApplication.name }}
+  name: "{{ .Values.app }}-{{ .Values.routerApplication.name }}"
   namespace: {{ .Values.argocdNamespace }}
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
