@@ -13,6 +13,11 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: "{{ .Values.dataScienceProjectNamespace }}"
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
   source:
     repoURL: "{{ .Values.vcs.uri }}"
     targetRevision: "{{ .Values.vcs.ref }}"
