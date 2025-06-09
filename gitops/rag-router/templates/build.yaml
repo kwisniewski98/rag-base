@@ -108,6 +108,5 @@ spec:
         secretReference:
           name: {{ .Values.app }}-github-webhook-secret
       type: GitHub
-    - imageChange: {}
-      type: ImageChange
     - type: ConfigChange
+    
