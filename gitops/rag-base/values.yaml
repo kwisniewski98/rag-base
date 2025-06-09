@@ -107,7 +107,7 @@ pipelinesApplication:
   targetRevision: main
 
 routerApplication:
-  name: router
+  name: rag-router
   path: gitops/rag-router
   targetRevision: main
 

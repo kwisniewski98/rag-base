@@ -3,7 +3,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: rag-router
+  name: {{ .Values.app }}-role
+  namespace: {{ .Values.namespace }}
 rules:
 - apiGroups: ["serving.kserve.io"]
   resources: ["inferenceservices"]
@@ -12,19 +13,19 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: rag-router
+  name: {{ .Values.app }}
   namespace: {{ .Values.namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: rag-router
+  name: {{ .Values.app }}-rb
   namespace: {{ .Values.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: rag-router
+  name: {{ .Values.app }}-role
 subjects:
 - kind: ServiceAccount
-  name: rag-router
+  name: {{ .Values.app }}
   namespace: {{ .Values.namespace }}
