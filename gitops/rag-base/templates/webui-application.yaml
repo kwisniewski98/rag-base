@@ -40,11 +40,11 @@ spec:
             value: "false"
           - name: ADMIN_EMAIL
             value: "nushkovg@kubito.dev"
-          - name: OAUTH_CLIENT_ID
-            valueFrom:
-              secretKeyRef:
-                name: open-webui-secret
-                key: oidc-client-id
+          # - name: OAUTH_CLIENT_ID
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: open-webui-secret
+          #       key: oidc-client-id
           # - name: OAUTH_CLIENT_SECRET
           #   valueFrom:
           #     secretKeyRef:
@@ -61,7 +61,7 @@ spec:
           - name: ENABLE_OPENAI_API
             value: "true"
           - name: OPENAI_API_BASE_URL
-            value: "https://openrouter.ai/api/v1"
+            value: "http://{{ .Values.routerApplication.name }}:7777/v1"
           - name: OPENAI_API_KEY
             valueFrom:
               secretKeyRef:

@@ -126,10 +126,10 @@ spec:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - name: 7860-tcp
-      port: 7860
+    - name: 7777-tcp
+      port: 7777
       protocol: TCP
-      targetPort: 7860
+      targetPort: 7777
   selector:
     app: {{ .Values.app }}
     deployment: {{ .Values.app }}
@@ -151,7 +151,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   port:
-    targetPort: 7860-tcp
+    targetPort: 7777-tcp
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge

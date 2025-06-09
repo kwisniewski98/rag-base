@@ -19,6 +19,7 @@ spec:
     path: "{{ .Values.routerApplication.path }}"
     helm:
       values: |
+        app: {{ .Values.routerApplication.name }}
         partOf: {{ .Values.app }}
         argocdNamespace: {{ .Values.argocdNamespace }}
         createNamespace: false
