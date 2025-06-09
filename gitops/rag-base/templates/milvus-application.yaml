@@ -17,7 +17,6 @@ spec:
         app: {{ .Values.milvusApplication.name }}
         partOf: {{ .Values.app }}
         argocdNamespace: {{ .Values.argocdNamespace }}
-        namespace: "{{ .Values.dataScienceProjectNamespace }}"
         createNamespace: false
   syncPolicy:
     automated:
