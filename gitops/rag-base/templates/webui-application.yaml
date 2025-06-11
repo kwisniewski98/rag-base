@@ -26,7 +26,10 @@ spec:
           enabled: false
 
         persistence:
-          enabled: false
+          enabled: true
+          size: 2Gi
+          accessModes:
+            - ReadWriteOnce
 
         extraEnvVars:
           - name: ENABLE_SIGNUP
@@ -44,9 +47,9 @@ spec:
           - name: OPENAI_API_KEY
             value: "{{ .Values.webuiApplication.openaiApiKey }}"
 
-          # Prevent SQLite crash by pointing to a writable dummy location
-          - name: DATABASE_URL
-            value: "sqlite:////tmp/open-webui.db"
+          # # Prevent SQLite crash by pointing to a writable dummy location
+          # - name: DATABASE_URL
+          #   value: "sqlite:////tmp/open-webui.db"
 
 
           # Required for app startup
