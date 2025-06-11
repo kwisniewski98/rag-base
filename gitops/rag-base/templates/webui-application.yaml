@@ -27,10 +27,7 @@ spec:
 
         # persistence section
         persistence:
-          enabled: true
-          size: 2Gi
-          accessModes:
-            - ReadWriteOnce
+          enabled: false
 
         extraEnvVars:
           # oidc login only section
