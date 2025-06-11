@@ -137,8 +137,7 @@ pipelinesConnection:
 
 webuiApplication:
   name: webui
-  #OPENAI_API_BASE_URL
-  openaiApiBaseUrl: https://openrouter.ai/api/v1
+  openaiApiKey: "12345678901234567890"
 
 minio:
   name: minio

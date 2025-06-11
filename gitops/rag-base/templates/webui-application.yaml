@@ -63,10 +63,11 @@ spec:
           - name: OPENAI_API_BASE_URL
             value: "http://{{ .Values.routerApplication.name }}:7777/v1"
           - name: OPENAI_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: open-webui-secret
-                key: open-router-api-key
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: open-webui-secret
+            #     key: open-router-api-key
+            value: "{{ .Values.webuiApplication.openaiApiKey }}"
 
            # web search with searxng section
           - name: ENABLE_RAG_WEB_SEARCH
