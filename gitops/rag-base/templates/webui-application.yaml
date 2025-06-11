@@ -46,7 +46,8 @@ spec:
 
           # Prevent SQLite crash by pointing to a writable dummy location
           - name: DATABASE_URL
-            value: "sqlite:///tmp/open-webui.db"
+            value: "sqlite:////tmp/open-webui.db"
+
 
           # Required for app startup
           - name: WEBUI_SECRET_KEY
