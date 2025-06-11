@@ -33,15 +33,19 @@ spec:
         models:
         {{- range .Values.models }}
           - name: {{ .name }}
-            url: http://{{ .name }}-predictor:8080/v1/chat/completions
+            id: {{ .model }}
+            url: http://{{ .name }}-predictor:8080
             model: {{ .name }}
             api_key: ""
         {{- end }}
         
+        embeddingsDefaultModel: {{ .Values.embeddingsDefaultModel }}
+
         embeddings:
         {{- range .Values.embeddings }}
           - name: {{ .name }}
-            url: http://{{ .name }}-predictor:8080/v1/embeddings
+            id: {{ .model }}
+            url: http://{{ .name }}-predictor:8080
             model: {{ .name }}
             api_key: ""
         {{- end }}

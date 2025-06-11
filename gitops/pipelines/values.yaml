@@ -1,3 +1,6 @@
+app: rag-pipelines
+partOf: rag-base
+
 argocdNamespace: openshift-gitops
 
 vcs:
@@ -28,3 +31,13 @@ mountCaCerts: "false"
 
 setup:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+
+workingDir: /opt/app-root/src/data
+
+embeddingsDefaultModel: multilingual-e5-large-gpu
+
+embeddings:
+  - name: multilingual-e5-large-gpu
+    url: http://multilingual-e5-large-gpu-predictor:8080
+    model: multilingual-e5-large-gpu
+    api_key: ""

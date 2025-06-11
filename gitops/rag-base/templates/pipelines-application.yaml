@@ -18,26 +18,30 @@ spec:
     targetRevision: "{{ .Values.vcs.ref }}"
     path: "{{ .Values.pipelinesApplication.path }}"
     helm:
-      parameters:
-        - name: argocdNamespace
-          value: {{ .Values.argocdNamespace }}
-        - name: createNamespace
-          value: "false"
-        - name: dataScienceProjectNamespace
-          value: "{{ .Values.dataScienceProjectNamespace }}"
-        - name: dataScienceProjectDisplayName
-          value: "{{ .Values.dataScienceProjectDisplayName }}"
-        - name: vcs.uri
-          value: "{{ .Values.vcs.uri }}"
-        - name: vcs.ref
-          value: "{{ .Values.vcs.ref }}"
-        - name: vcs.name
-          value: "{{ .Values.vcs.name }}"
-        - name: mountCaCerts
-          value: "{{ .Values.mountCaCerts }}"
+      values: |
+        argocdNamespace: {{ .Values.argocdNamespace }}
+        createNamespace: false
+        dataScienceProjectNamespace: {{ .Values.dataScienceProjectNamespace }}
+        dataScienceProjectDisplayName: {{ .Values.dataScienceProjectDisplayName }}
+        vcs:
+          uri: {{ .Values.vcs.uri }}
+          ref: {{ .Values.vcs.ref }}
+          name: {{ .Values.vcs.name }}
+
+        embeddingsDefaultModel: {{ .Values.embeddingsDefaultModel }}
+
+        embeddings:
+        {{- range .Values.embeddings }}
+          - name: {{ .name }}
+            id: {{ .model }}
+            url: http://{{ .name }}-predictor:8080
+            model: {{ .name }}
+            api_key: ""
+        {{- end }}
+
+        mountCaCerts: {{ .Values.mountCaCerts }}
   syncPolicy:
     automated:
-      # prune: true
       selfHeal: true
   ignoreDifferences:
     - group: ""

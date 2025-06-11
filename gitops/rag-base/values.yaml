@@ -12,6 +12,8 @@ vcs:
   ref: main
   name: alpha-hack-program/rag-base
 
+embeddingsDefaultModel: multilingual-e5-large-gpu
+
 embeddings:
   - name: multilingual-e5-large-gpu
     displayName: multilingual-e5-large GPU

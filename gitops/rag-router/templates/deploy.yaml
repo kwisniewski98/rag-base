@@ -60,9 +60,9 @@ spec:
             - name: {{ .Values.app }}-model-map
               mountPath: {{ .Values.workingDir }}/data/model_map.json
               subPath: model_map.json
-            - name: {{ .Values.app }}-embeddings-map
-              mountPath: {{ .Values.workingDir }}/data/embeddings_map.json
-              subPath: embeddings_map.json
+            - name: {{ .Values.app }}-embedding-map
+              mountPath: {{ .Values.workingDir }}/data/embedding_map.json
+              subPath: embedding_map.json
             - name: {{ .Values.app }}-prompts
               mountPath: {{ .Values.workingDir }}/prompts
             {{- if .Values.mountCaCerts }}
@@ -78,12 +78,12 @@ spec:
               - key: model_map.json
                 path: model_map.json
             defaultMode: 420
-        - name: {{ .Values.app }}-embeddings-map
+        - name: {{ .Values.app }}-embedding-map
           secret:
-            secretName: {{ .Values.app }}-embeddings-map
+            secretName: {{ .Values.app }}-embedding-map
             items:
-              - key: embeddings_map.json
-                path: embeddings_map.json
+              - key: embedding_map.json
+                path: embedding_map.json
             defaultMode: 420
         - name: {{ .Values.app }}-prompts
           configMap:

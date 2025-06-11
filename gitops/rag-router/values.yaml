@@ -22,23 +22,25 @@ vcs:
 
 mountCaCerts: "false"
 
+embeddingsDefaultModel: multilingual-e5-large-gpu
+
 embeddings:
   - name: multilingual-e5-large-gpu
-    url: http://multilingual-e5-large-gpu-predictor:8080/v1/embeddings
+    url: http://multilingual-e5-large-gpu-predictor:8080
     model: multilingual-e5-large-gpu
     api_key: ""
 
 models:
   - name: granite-3-1-8b
-    url: http://granite-3-1-8b-instruct-predictor:8080/v1/chat/completions
+    url: http://granite-3-1-8b-instruct-predictor:8080
     model: granite-3-1-8b-instruct
     api_key: ""
   - name: mistral-7b-instruct-v0-3
-    url: https://mistral-7b-instruct-v0-3-predictor:8080/v1/chat/completions
+    url: https://mistral-7b-instruct-v0-3-predictor:8080
     model: mistral-7b-instruct
     api_key: ""
   - name: llama-3-1-8b
-    url: https://llama-3-1-8b-instruct-predictor:8080/v1/chat/completions
+    url: https://llama-3-1-8b-instruct-predictor:8080
     model: meta-llama/Llama-3.1-8B-Instruct
     api_key: ""
 
