@@ -137,7 +137,8 @@ pipelinesConnection:
 
 webuiApplication:
   name: webui
-  openaiApiKey: "12345678901234567890"
+  openaiApiKey: "1234"
+  secretKey: "1234"
 
 minio:
   name: minio
