@@ -155,7 +155,7 @@ milvus:
   port: '19530'
   host: vectordb-milvus
   database: default
-  collectionName: document-chunks
+  collectionName: document_chunks
 
 setup:
   image: quay.io/atarazana/hf-cli:latest
