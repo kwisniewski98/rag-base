@@ -16,6 +16,7 @@ spec:
     chart: open-webui
     helm:
       values: |
+      
         ollama:
           enabled: false
 
