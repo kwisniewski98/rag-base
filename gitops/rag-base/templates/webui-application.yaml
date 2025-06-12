@@ -33,9 +33,9 @@ spec:
 
         extraEnvVars:
           - name: ENABLE_SIGNUP
-            value: "false"
+            value: "true"
           - name: ENABLE_LOGIN_FORM
-            value: "false"
+            value: "true"
           - name: ADMIN_EMAIL
             value: "admin@acme.com"
 
