@@ -12,7 +12,7 @@ spec:
     namespace: {{ .Values.dataScienceProjectNamespace }}
   source:
     repoURL: 'https://helm.openwebui.com'
-    targetRevision: 3.8.0
+    targetRevision: 6.20.0
     chart: open-webui
     helm:
       values: |
