@@ -21,6 +21,9 @@ spec:
     - name: GIT_REVISION
       type: string
       default: "{{ .Values.vcs.ref }}"
+    - name: GIT_DIR
+      type: string
+      default: "{{ .Values.vcs.dir | default "pipelines" }}"
     - name: GIT_SSL_VERIFY
       type: string
       default: '{{ .Values.gitSslVerify }}'
@@ -64,7 +67,7 @@ spec:
         - name: REQUIREMENTS_FILE
           value: requirements.txt
         - name: PIPELINES_PATH
-          value: {{ .Values.vcs.dir | default "pipelines" }}
+          value: $(params.GIT_DIR)
         - name: ADDED_FILES
           value: $(tasks.fetch-repository.results.added)
         - name: REMOVED_FILES

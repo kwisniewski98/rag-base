@@ -229,7 +229,7 @@ spec:
         echo "PIPELINES_UPSERT=${PIPELINES_UPSERT}"
 
         for file in ${PIPELINES_UPSERT}; do
-          python ${file}
+          ./compile-upsert-pipeline.sh ${file}
         done
   workspaces:
     - mountPath: /workspace/source
