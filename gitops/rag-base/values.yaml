@@ -107,6 +107,11 @@ pipelinesApplication:
   name: pipelines
   path: gitops/pipelines
   targetRevision: main
+  vcs: # This is the VCS configuration for the KFP pipelines code
+    uri: https://github.com/alpha-hack-program/rag-utils.git
+    ref: main
+    name: alpha-hack-program/rag-utils
+    dir: pipelines
 
 routerApplication:
   name: rag-router

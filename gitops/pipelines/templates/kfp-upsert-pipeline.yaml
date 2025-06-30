@@ -64,7 +64,7 @@ spec:
         - name: REQUIREMENTS_FILE
           value: requirements.txt
         - name: PIPELINES_PATH
-          value: pipeline
+          value: {{ .Values.vcs.dir | default "pipelines" }}
         - name: ADDED_FILES
           value: $(tasks.fetch-repository.results.added)
         - name: REMOVED_FILES

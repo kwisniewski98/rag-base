@@ -4,9 +4,10 @@ partOf: rag-base
 argocdNamespace: openshift-gitops
 
 vcs:
-  uri: https://github.com/alpha-hack-program/doc-bot.git
+  uri: https://github.com/alpha-hack-program/rag-utils.git
   ref: main
-  name: alpha-hack-program/doc-bot
+  name: alpha-hack-program/rag-utils
+  dir: pipelines
 
 gitSslVerify: true
 

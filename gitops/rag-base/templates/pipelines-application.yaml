@@ -24,9 +24,9 @@ spec:
         dataScienceProjectNamespace: {{ .Values.dataScienceProjectNamespace }}
         dataScienceProjectDisplayName: {{ .Values.dataScienceProjectDisplayName }}
         vcs:
-          uri: {{ .Values.vcs.uri }}
-          ref: {{ .Values.vcs.ref }}
-          name: {{ .Values.vcs.name }}
+          uri: {{ .Values.pipelinesApplication.vcs.uri }}
+          ref: {{ .Values.pipelinesApplication.vcs.ref }}
+          name: {{ .Values.pipelinesApplication.vcs.name }}
 
         embeddingsDefaultModel: {{ .Values.embeddingsDefaultModel }}
 
