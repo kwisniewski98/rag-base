@@ -47,6 +47,8 @@ spec:
   results:
     - description: Pipelines files to upsert 
       name: PIPELINE_FILES_TO_UPSERT
+    - description: Pipelines files to remove 
+      name: PIPELINE_FILES_TO_REMOVE
     - description: The Pipeline Id of the kfp pipeline uploaded
       name: PIPELINE_ID
   steps:
@@ -111,6 +113,8 @@ spec:
 
 
         pipeline_files_to_upsert_file_path="$(results.PIPELINE_FILES_TO_UPSERT.path)"
+
+        pipeline_files_to_remove_file_path="$(results.PIPELINE_FILES_TO_REMOVE.path)"
 
 
         # Function to filter and clean file paths
@@ -207,6 +211,8 @@ spec:
 
         with open(pipeline_files_to_upsert_file_path, 'w') as f:
             f.write(' '.join(pipeline_files_to_upsert))
+        with open(pipeline_files_to_remove_file_path, 'w') as f:
+            f.write(' '.join(pipeline_files_to_remove))
 
         # Print the contents of the files
         with open(pipeline_files_to_upsert_file_path, 'r') as f:
