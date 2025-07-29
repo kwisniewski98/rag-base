@@ -139,7 +139,7 @@ spec:
               - '--tool-call-parser'
               - 'llama3_json'
               - '--chat-template'
-              - 'examples/tool_chat_template_llama3.1_json.jinja'
+              - '/app/data/template/tool_chat_template_llama3.1_json.jinja'
 
         milvusApplication:
           name: milvus
