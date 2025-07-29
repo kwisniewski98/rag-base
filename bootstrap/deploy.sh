@@ -135,10 +135,12 @@ spec:
               min: '1'
               productName: ${GPU_NAME}
             args:
-              - '-enable-auto-tool-choice'
+              - '--enable-auto-tool-choice'
               - '--tool-call-parser'
-              - llama3_json
-              
+              - 'llama3_json'
+              - '--chat-template'
+              - 'examples/tool_chat_template_llama3.1_json.jinja'
+
         milvusApplication:
           name: milvus
           path: gitops/milvus

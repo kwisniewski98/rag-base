@@ -29,12 +29,6 @@ spec:
     maxReplicas: {{ default 1 .maxReplicas }}
     minReplicas: 1
     model:
-      {{- if .args }}
-      args:
-      {{- range .args }}
-        - '{{ . }}'
-      {{- end }}
-      {{- end }}
       modelFormat:
         name: {{ default "vLLM" .format }}
       name: ''
@@ -133,7 +127,7 @@ spec:
         - '--max-model-len'
         - '{{ .maxModelLen }}'
         {{- end }}
-        {{/* If productName contains T4, then use float16 and tensor-parallel-size */}}
+        {{- /* If productName contains T4, then use float16 and tensor-parallel-size */ -}}
         {{- if .accelerator.productName | regexMatch "T4" }}
         - '--dtype'
         - float16
@@ -143,7 +137,7 @@ spec:
         {{- if .embeddingsModel }}
         - '--trust-remote-code'
         {{- end }}
-        {{/* https://docs.vllm.ai/en/latest/features/tool_calling.html#ibm-granite */}}
+        {{- /* https://docs.vllm.ai/en/latest/features/tool_calling.html#ibm-granite */ -}}
         {{- if .toolCallParser }}
         - '--tool-call-parser'
         - '{{ .toolCallParser }}'
@@ -151,6 +145,11 @@ spec:
         {{- if .chatTemplate }}
         - '--chat-template'
         - '{{ .chatTemplate }}'
+        {{- end }}
+        {{- if .args }}
+        {{- range .args }}
+        - '{{ . }}'
+        {{- end }}
         {{- end }}
       command:
         - python
