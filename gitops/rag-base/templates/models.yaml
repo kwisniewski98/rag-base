@@ -29,6 +29,12 @@ spec:
     maxReplicas: {{ default 1 .maxReplicas }}
     minReplicas: 1
     model:
+      {{- if .args }}
+      args:
+      {{- range .args }}
+        - '{{ . }}'
+      {{- end }}
+      {{- end }}
       modelFormat:
         name: {{ default "vLLM" .format }}
       name: ''

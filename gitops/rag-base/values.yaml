@@ -97,7 +97,10 @@ models:
       max: '1'
       min: '1'
       productName: NVIDIA-A10G
-
+    args:
+      - '-enable-auto-tool-choice'
+      - '--tool-call-parser'
+      - llama3_json
 milvusApplication:
   name: milvus
   path: gitops/milvus
