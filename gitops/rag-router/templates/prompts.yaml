@@ -10,5 +10,5 @@ data:
       - name: {{ .name }}
         description: "{{ .description }}"
         template: |
-          {{ .template | indent 8 }}
+{{ .template | indent 10 }}
     {{- end }}
