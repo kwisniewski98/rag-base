@@ -61,32 +61,7 @@ spec:
           memory: {{ .Values.lsdResources.requests.memory | default "1Gi" }}
         {{- end }}
       {{- end }}
-      apiVersion: llamastack.io/v1alpha1
-kind: LlamaStackDistribution
-metadata:
-  name: my-llama-stack
-  namespace: default
-spec:
-  replicas: 1
-  server:
-    # Distribution configuration - you can use either 'name' for predefined distributions
-    # or 'image' for a direct container image reference
-    distribution:
-      name: "local"  # or specify image: "your-registry/llama-stack:tag"
-    
-    # Container specification
-    containerSpec:
-      name: llama-stack
-      port: 8000
-      resources:
-        requests:
-          memory: "2Gi"
-          cpu: "1000m"
-        limits:
-          memory: "4Gi"
-          cpu: "2000m"
-    
-    # Pod-level overrides to mount the secret
+
     podOverrides:
       # Define volumes at the pod level
       volumes:
