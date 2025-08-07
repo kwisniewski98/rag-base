@@ -64,7 +64,8 @@ spec:
               mountPath: {{ .Values.workingDir }}/data/embedding_map.json
               subPath: embedding_map.json
             - name: {{ .Values.app }}-prompts
-              mountPath: {{ .Values.workingDir }}/prompts
+              mountPath: {{ .Values.workingDir }}/data/prompts.yaml
+              subPath: prompts.yaml
             {{- if .Values.mountCaCerts }}
             - name: {{ .Values.app }}-cacerts
               mountPath: /opt/app-root/lib/python{{ .Values.python }}/site-packages/certifi/cacert.pem

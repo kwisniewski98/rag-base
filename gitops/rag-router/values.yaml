@@ -44,6 +44,24 @@ models:
     model: meta-llama/Llama-3.1-8B-Instruct
     api_key: ""
 
+prompts:
+  - name: context
+    description: "Prompt for answering general questions with context"
+    template: |
+      Given the following context:
+      <context>
+      {context}
+      </context>
+
+      Answer the question: {query}
+      Don't use any information outside the context provided. Don't make up any information. If you don't know the answer, just say 'I don't know'.
+
+  - name: default
+    description: "Prompt for answering questions without context"
+    template: |
+      Answer the question: {query}
+      Don't use any context. Don't make up any information. If you don't know the answer, just say 'I don't know'.
+  
 milvus:
   name: milvus
   username: root
