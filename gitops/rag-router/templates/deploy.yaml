@@ -89,6 +89,9 @@ spec:
         - name: {{ .Values.app }}-prompts
           configMap:
             name: {{ .Values.app }}-prompts
+            items:
+              - key: prompts.yaml
+                path: prompts.yaml
             defaultMode: 420
         {{- if .Values.mountCaCerts }}
         - name: {{ .Values.app }}-cacerts

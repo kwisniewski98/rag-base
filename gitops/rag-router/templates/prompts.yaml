@@ -3,11 +3,12 @@ apiVersion: v1
 metadata:
   name: {{ .Values.app }}-prompts
   namespace: {{ .Values.namespace }}
-data: |
-  prompts:
-  {{- range .Values.prompts }}
-    - name: {{ .name }}
-      description: "{{ .description }}"
-      template: |
-        {{ .template | indent 8 }}
-  {{- end }}
+data: 
+  prompts.yaml: |
+    prompts:
+    {{- range .Values.prompts }}
+      - name: {{ .name }}
+        description: "{{ .description }}"
+        template: |
+          {{ .template | indent 8 }}
+    {{- end }}
