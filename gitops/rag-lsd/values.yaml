@@ -36,13 +36,13 @@ mcpServers:
 
 models:
   - name: granite-3-1-8b
-    url: http://granite-3-1-8b-predictor:8080
+    url: http://granite-3-1-8b-predictor:80
     model: granite-3-1-8b-instruct
     api_key: ""
     tls_verify: false
     max_tokens: 12000
   - name: llama-3-1-8b-w4a16
-    url: https://llama-3-1-8b-w4a16-predictor:8080
+    url: http://llama-3-1-8b-w4a16-predictor:80
     model: meta-llama/Llama-3.1-8B-Instruct
     api_key: ""
     tls_verify: false

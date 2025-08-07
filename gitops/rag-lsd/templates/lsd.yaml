@@ -14,32 +14,32 @@ spec:
           valueFrom:
             secretKeyRef:
               key: {{ include "rag-lsd.envVarName" .name }}_MODEL
-              name: {{ $appName }}-env
+              name: {{ $appName }}-secret
         - name: {{ include "rag-lsd.envVarName" .name }}_URL
           valueFrom:
             secretKeyRef:
               key: {{ include "rag-lsd.envVarName" .name }}_URL
-              name: {{ $appName }}-env
+              name: {{ $appName }}-secret
         {{- if .api_key }}
         - name: {{ include "rag-lsd.envVarName" .name }}_API_KEY
           valueFrom:
             secretKeyRef:
               key: {{ include "rag-lsd.envVarName" .name }}_API_KEY
-              name: {{ $appName }}-env
+              name: {{ $appName }}-secret
         {{- end }}
         {{- if .tls_verify }}
         - name: {{ include "rag-lsd.envVarName" .name }}_TLS_VERIFY
           valueFrom:
             secretKeyRef:
               key: {{ include "rag-lsd.envVarName" .name }}_TLS_VERIFY
-              name: {{ $appName }}-env
+              name: {{ $appName }}-secret
         {{- end }}
         {{- if .max_tokens }}
         - name: {{ include "rag-lsd.envVarName" .name }}_MAX_TOKENS
           valueFrom:
             secretKeyRef:
               key: {{ include "rag-lsd.envVarName" .name }}_MAX_TOKENS
-              name: {{ $appName }}-env
+              name: {{ $appName }}-secret
         {{- end }}
         {{- end }}
         - name: MILVUS_DB_PATH
