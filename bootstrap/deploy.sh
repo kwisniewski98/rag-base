@@ -148,11 +148,26 @@ spec:
               cpu: 250m
               memory: 500Mi
 
-        # mcpServers:
-        #   - id: mcp::bon-calculadora
-        #     provider_id: model-context-protocol
-        #     endpoint:
-        #       uri: "http://bon-calculadora:8000/sse"
+        mcpServers:
+          - id: mcp::bon-calculadora
+            provider_id: model-context-protocol
+            vcs:
+              uri: https://github.com/alpha-hack-program/bon-calculadora-mcp-js.git
+              ref: main
+              path: .
+            image: quay.io/atarazana/bon-calculadora-mcp-js:1.0.0
+            mcp_transport: "sse"
+            protocol: "http"
+            host: bon-calculadora
+            port: 8000
+            uri: "/sse"
+            resources:
+              limits:
+                cpu: '2'
+                memory: 4Gi
+              requests:
+                cpu: 250m
+                memory: 500Mi
 
         routerApplication:
           name: router

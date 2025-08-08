@@ -51,7 +51,7 @@ spec:
           - id: {{ .id }}
             provider_id: {{ .provider_id }}
             endpoint:
-              uri: "{{ .endpoint.uri }}"
+              uri: "{{ .protocol }}://{{ .host }}:{{ .port }}{{ .uri}}"
         {{- end }}
         {{- end }}
 

@@ -1,0 +1,30 @@
+app: rag-mcp-servers
+partOf: rag-base
+
+namespace: rag-base
+# createNamespace: true
+
+argocdNamespace: openshift-gitops
+
+servers:
+  - id: mcp::bon-calculadora
+    provider_id: model-context-protocol
+    vcs:
+      uri: https://github.com/alpha-hack-program/bon-calculadora-mcp-js.git
+      ref: main
+      path: .
+    image: quay.io/atarazana/bon-calculadora-mcp-js:1.0.0
+    mcp_transport: "sse"
+    protocol: "http"
+    host: bon-calculadora
+    port: 8000
+    uri: "/sse"
+    resources:
+      limits:
+        cpu: '2'
+        memory: 4Gi
+      requests:
+        cpu: 250m
+        memory: 500Mi
+
+
