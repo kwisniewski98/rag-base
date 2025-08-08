@@ -50,7 +50,7 @@ spec:
     spec:
       serviceAccountName: {{ .host }}
       containers:
-        - image: .image
+        - image: {{ .image }}
           imagePullPolicy: Always
           name: {{ .host }}
           ports:
