@@ -6,13 +6,6 @@ namespace: rag-base
 
 argocdNamespace: openshift-gitops
 
-vcs:
-  uri: https://github.com/alpha-hack-program/rag-lsd.git
-  ref: main
-  name: alpha-hack-program/rag-lsd
-  path: .
-  # sourceSecret: git-pat-bc-secret
-
 milvusDbPath: ~/.llama/milvus.db
 
 fmsOchestratorUrl: http://localhost

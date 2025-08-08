@@ -20,7 +20,7 @@ spec:
         - /spec/template/spec/containers/0/image
   source:
     repoURL: "{{ .Values.vcs.uri }}"
-    targetRevision: "{{ .Values.vcs.ref }}"
+    targetRevision: "{{ .Values.lsdApplication.targetRevision }}"
     path: "{{ .Values.lsdApplication.path }}"
     helm:
       values: |

@@ -94,26 +94,6 @@ spec:
               max: '1'
               min: '1'
               productName: ${GPU_NAME}
-          # - name: mistral-7b-instruct-v0-3
-          #   displayName: Mistral 7B Instruct v0.3
-          #   model: mistralai/Mistral-7B-Instruct-v0.3
-          #   image: quay.io/redhat-ai-services/modelcar-catalog:mistral-7b-instruct-v0.3
-          #   maxModelLen: '4000'
-          #   runtime:
-          #     templateName: vllm-serving-template
-          #     templateDisplayName: vLLM Serving Template
-          #     image: quay.io/modh/vllm:rhoai-2.20-cuda
-          #     resources:
-          #       limits:
-          #         cpu: '8'
-          #         memory: 24Gi
-          #       requests:
-          #         cpu: '6'
-          #         memory: 24Gi
-          #   accelerator:
-          #     max: '1'
-          #     min: '1'
-          #     productName: ${GPU_NAME}
           - name: llama-3-1-8b-w4a16
             displayName: Llama 3.1 8B
             model: RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16"
@@ -150,6 +130,29 @@ spec:
           name: pipelines
           path: gitops/pipelines
           targetRevision: main
+
+        webuiApplication:
+          name: webui
+          openaiApiKey: "1234"
+          secretKey: "1234"
+
+        lsdApplication:
+          name: lsd
+          path: gitops/rag-lsd
+          targetRevision: agentic
+          resources:
+            limits:
+              cpu: '2'
+              memory: 12Gi
+            requests:
+              cpu: 250m
+              memory: 500Mi
+
+        # mcpServers:
+        #   - id: mcp::bon-calculadora
+        #     provider_id: model-context-protocol
+        #     endpoint:
+        #       uri: "http://bon-calculadora:8000/sse"
 
         routerApplication:
           name: router

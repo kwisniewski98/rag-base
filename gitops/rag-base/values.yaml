@@ -136,7 +136,7 @@ webuiApplication:
 lsdApplication:
   name: lsd
   path: gitops/rag-lsd
-  targetRevision: agentic
+  targetRevision: main
   resources:
     limits:
       cpu: '2'
