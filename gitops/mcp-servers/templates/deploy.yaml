@@ -5,6 +5,12 @@
 
 {{- range .Values.servers }}
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .host }}
+  namespace: {{ $namespace }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
