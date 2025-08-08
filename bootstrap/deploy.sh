@@ -78,7 +78,7 @@ spec:
             displayName: Granite 3.3 8B
             model: ibm-granite/granite-3.3-8b-instruct
             image: quay.io/redhat-ai-services/modelcar-catalog:granite-3.3-8b-instruct
-            maxModelLen: '6000'
+            maxModelLen: '15000'
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template

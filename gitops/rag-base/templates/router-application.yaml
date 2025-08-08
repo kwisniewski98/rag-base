@@ -33,7 +33,7 @@ spec:
         models:
         {{- range .Values.models }}
           - name: {{ .name }}
-            id: {{ .model }}
+            id: {{ .id | default .name }}
             url: http://{{ .name }}-predictor:8080
             model: {{ .name }}
             api_key: ""

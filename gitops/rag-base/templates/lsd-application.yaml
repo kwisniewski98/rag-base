@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "{{ .Values.app }}-{{ .Values.lsdApplication.name }}"
+  namespace: {{ .Values.argocdNamespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app.kubernetes.io/part-of: {{ .Values.app }}
+spec:
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: "{{ .Values.dataScienceProjectNamespace }}"
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+  source:
+    repoURL: "{{ .Values.vcs.uri }}"
+    targetRevision: "{{ .Values.vcs.ref }}"
+    path: "{{ .Values.lsdApplication.path }}"
+    helm:
+      values: |
+        app: {{ .Values.lsdApplication.name }}
+        partOf: {{ .Values.app }}
+
+        argocdNamespace: {{ .Values.argocdNamespace }}
+        
+        createNamespace: false
+        namespace: {{ .Values.dataScienceProjectNamespace }}
+
+        {{- if .Values.models}}
+        models:
+        {{- range .Values.models }}
+          - name: {{ .name }}
+            id: {{ .name }}
+            url: http://{{ .name }}-predictor:8080/v1
+            model: {{ .name }}
+            api_key: {{ .apiKey | default "" }}
+            tls_verify: {{ .tlsVerify | default false }}
+            max_tokens: {{ .maxModelLen | default 12000 }}
+        {{- end }}
+        {{- end }}
+
+        {{- if .Values.mcpServers }}
+        mcpServers:
+        {{- range .Values.mcpServers }}
+          - id: {{ .id }}
+            provider_id: {{ .provider_id }}
+            endpoint:
+              uri: "{{ .endpoint.uri }}"
+        {{- end }}
+        {{- end }}
+
+         {{- if .Values.lsdApplication.resources }}
+        resources:
+          {{- if .Values.lsdApplication.resources.limits }}
+          limits:
+            cpu: {{ .Values.lsdApplication.resources.limits.cpu | default "2" }}
+            memory: {{ .Values.lsdApplication.resources.limits.memory | default "12Gi" }}
+          {{- end }}
+          {{- if .Values.lsdApplication.resources.requests }}
+          requests:
+            cpu: {{ .Values.lsdApplication.resources.requests.cpu | default "250m" }}
+            memory: {{ .Values.lsdApplication.resources.requests.memory | default "1Gi" }}
+          {{- end }}
+        {{- end }}
+        
+  syncPolicy:
+    automated:
+      selfHeal: true

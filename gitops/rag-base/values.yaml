@@ -39,29 +39,10 @@ embeddings:
 models:
   - name: granite-3-3-8b
     displayName: Granite 3.3 8B
-    model: ibm-granite/granite-3.3-8b-instruct
+    id: ibm-granite/granite-3.3-8b-instruct
     image: quay.io/redhat-ai-services/modelcar-catalog:granite-3.3-8b-instruct
-    maxModelLen: '6000'
-    runtime:
-      templateName: vllm-serving-template
-      templateDisplayName: vLLM Serving Template
-      image: quay.io/modh/vllm:rhoai-2.20-cuda
-      resources:
-        limits:
-          cpu: '8'
-          memory: 24Gi
-        requests:
-          cpu: '6'
-          memory: 24Gi
-    accelerator:
-      max: '1'
-      min: '1'
-      productName: NVIDIA-A10G
-  - name: mistral-7b-instruct-v0-3
-    displayName: Mistral 7B Instruct v0.3
-    model: mistralai/Mistral-7B-Instruct-v0.3
-    image: quay.io/redhat-ai-services/modelcar-catalog:mistral-7b-instruct-v0.3
-    maxModelLen: '4000'
+    maxModelLen: '15000'
+    tlsVerify: false
     runtime:
       templateName: vllm-serving-template
       templateDisplayName: vLLM Serving Template
@@ -79,9 +60,10 @@ models:
       productName: NVIDIA-A10G
   - name: llama-3-1-8b-w4a16
     displayName: Llama 3.1 8B
-    model: RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16"
+    id: RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16
     image: quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-8b-instruct-quantized.w4a16
     maxModelLen: '15000'
+    tlsVerify: false
     runtime:
       templateName: vllm-serving-template
       templateDisplayName: vLLM Serving Template
@@ -103,6 +85,7 @@ models:
       - llama3_json
       - --chat-template
       - /app/data/template/tool_chat_template_llama3.1_json.jinja
+
 milvusApplication:
   name: milvus
   path: gitops/milvus
@@ -149,6 +132,24 @@ webuiApplication:
   name: webui
   openaiApiKey: "1234"
   secretKey: "1234"
+
+lsdApplication:
+  name: lsd
+  path: gitops/rag-lsd
+  targetRevision: agentic
+  resources:
+    limits:
+      cpu: '2'
+      memory: 12Gi
+    requests:
+      cpu: 250m
+      memory: 500Mi
+
+# mcpServers:
+#   - id: mcp::bon-calculadora
+#     provider_id: model-context-protocol
+#     endpoint:
+#       uri: "http://bon-calculadora:8000/sse"
 
 minio:
   name: minio
