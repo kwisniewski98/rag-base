@@ -24,11 +24,17 @@ stringData:
       - provider_id: {{ .name | replace " " "-" | lower }}
         provider_type: remote::vllm
         config:
-          url: {{ .url }}
-          model: {{ .model }}
-          api_key: {{ .api_key | default "" }}
-          tls_verify: {{ .tls_verify | default false }}
-          max_tokens: {{ .max_tokens | default 12000 }}
+          url: ${env.{{ include "rag-lsd.envVarName" .name }}_URL}
+          model: ${env.{{ include "rag-lsd.envVarName" .name }}_MODEL}
+          {{- if .api_key }}
+          api_key: ${env.{{ include "rag-lsd.envVarName" .name }}_API_KEY}
+          {{- end }}
+          {{- if .tls_verify }}
+          tls_verify: ${env.{{ include "rag-lsd.envVarName" .name }}_TLS_VERIFY:false}
+          {{- end }}
+          {{- if .max_tokens }}
+          max_tokens: ${env.{{ include "rag-lsd.envVarName" .name }}_MAX_TOKENS:12000}
+          {{- end }}
       {{- end }}
       - provider_id: sentence-transformers
         provider_type: inline::sentence-transformers
