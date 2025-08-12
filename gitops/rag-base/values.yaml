@@ -145,6 +145,11 @@ lsdApplication:
       cpu: 250m
       memory: 500Mi
 
+mcpServersApplication:
+  name: mcp-servers
+  path: gitops/mcp-servers
+  targetRevision: main
+
 mcpServers:
   - id: mcp::bon-calculadora
     provider_id: model-context-protocol

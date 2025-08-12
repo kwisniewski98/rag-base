@@ -21,6 +21,12 @@ lsdResources:
     cpu: 250m
     memory: 500Mi
 
+mcpServers:
+  - id: mcp::bon-calculadora
+    provider_id: model-context-protocol
+    endpoint:
+      uri: "http://bon-calculadora:8000/sse"
+
 # mcpServers:
 #   - id: mcp::bon-calculadora
 #     provider_id: model-context-protocol

@@ -56,7 +56,7 @@ spec:
         {{- end }}
 
          {{- if .Values.lsdApplication.resources }}
-        resources:
+        lsdResources:
           {{- if .Values.lsdApplication.resources.limits }}
           limits:
             cpu: {{ .Values.lsdApplication.resources.limits.cpu | default "2" }}
