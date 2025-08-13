@@ -148,6 +148,11 @@ spec:
               cpu: 250m
               memory: 500Mi
 
+        mcpServersApplication:
+          name: mcp-servers
+          path: gitops/mcp-servers
+          targetRevision: agentic
+
         mcpServers:
           - id: mcp::bon-calculadora
             provider_id: model-context-protocol
@@ -155,7 +160,7 @@ spec:
               uri: https://github.com/alpha-hack-program/bon-calculadora-mcp-js.git
               ref: main
               path: .
-            image: quay.io/atarazana/bon-calculadora-mcp-js:1.0.0
+            image: quay.io/atarazana/bon-calculadora-mcp-js:1.0.2
             mcp_transport: "sse"
             protocol: "http"
             host: bon-calculadora
