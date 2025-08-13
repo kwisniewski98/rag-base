@@ -79,6 +79,7 @@ spec:
             model: ibm-granite/granite-3.3-8b-instruct
             image: quay.io/redhat-ai-services/modelcar-catalog:granite-3.3-8b-instruct
             maxModelLen: '23000'
+            maxTokens: '4096'
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template
@@ -99,6 +100,7 @@ spec:
             model: RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16"
             image: quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-8b-instruct-quantized.w4a16
             maxModelLen: '23000'
+            maxTokens: '4096'
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template

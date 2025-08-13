@@ -71,13 +71,13 @@ spec:
             model: granite-3-3-8b
             api_key: ""
             tls_verify: false
-            max_tokens: 12000
+            max_tokens: 4096
           - name: llama-3-1-8b-w4a16
             url: http://llama-3-1-8b-w4a16-predictor:8080/v1
             model: llama-3-1-8b-w4a16
             api_key: ""
             tls_verify: false
-            max_tokens: 12000
+            max_tokens: 4096
 
         prompts:
           - name: context

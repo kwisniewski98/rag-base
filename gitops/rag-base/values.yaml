@@ -42,6 +42,7 @@ models:
     id: ibm-granite/granite-3.3-8b-instruct
     image: quay.io/redhat-ai-services/modelcar-catalog:granite-3.3-8b-instruct
     maxModelLen: '15000'
+    maxTokens: '4096' # llama stack vllm max token, default is 4096
     tlsVerify: false
     runtime:
       templateName: vllm-serving-template
@@ -62,7 +63,8 @@ models:
     displayName: Llama 3.1 8B
     id: RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16
     image: quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-8b-instruct-quantized.w4a16
-    maxModelLen: '15000'
+    maxModelLen: '15000' # vllm max model len
+    maxTokens: '4096' # llama stack vllm max token, default is 4096
     tlsVerify: false
     runtime:
       templateName: vllm-serving-template
