@@ -34,7 +34,7 @@ spec:
 
         {{- if .Values.mcpServers }}
         servers:
-        {{- range .Values.servers }}
+        {{- range .Values.mcpServers }}
           - id: {{ .id }}
             provider_id: {{ .provider_id }}
             vcs:
@@ -47,6 +47,7 @@ spec:
             host: {{ .host }}
             port: {{ .port }}
             uri: {{ .uri }}
+            replicas: {{ .replicas | default 1 }}
             {{- if .resources }}
             resources:
               limits:

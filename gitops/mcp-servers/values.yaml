@@ -19,6 +19,7 @@ servers:
     host: bon-calculadora
     port: 8000
     uri: "/sse"
+    replicas: 1
     resources:
       limits:
         cpu: '2'

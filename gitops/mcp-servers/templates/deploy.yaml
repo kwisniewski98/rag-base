@@ -31,7 +31,7 @@ metadata:
   namespace: {{ $namespace }}
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: {{ .replicas | default 1 }}
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -43,7 +43,6 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: {{ .host }}
         deployment: {{ .host }}
