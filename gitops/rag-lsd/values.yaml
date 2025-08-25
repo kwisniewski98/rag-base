@@ -6,7 +6,7 @@ namespace: rag-base
 
 argocdNamespace: openshift-gitops
 
-milvusDbPath: ~/.llama/milvus.db
+milvusDbPath: ~/.llama/distributions/rh/milvus.db
 
 fmsOchestratorUrl: http://localhost
 
