@@ -126,12 +126,12 @@ spec:
         milvusApplication:
           name: milvus
           path: gitops/milvus
-          targetRevision: main
+          targetRevision: ${GIT_REVISION:-main}
 
         pipelinesApplication:
           name: pipelines
           path: gitops/pipelines
-          targetRevision: main
+          targetRevision: ${GIT_REVISION:-main}
 
         webuiApplication:
           name: webui
@@ -141,7 +141,7 @@ spec:
         lsdApplication:
           name: lsd
           path: gitops/rag-lsd
-          targetRevision: agentic
+          targetRevision: ${GIT_REVISION:-main}
           resources:
             limits:
               cpu: '2'
@@ -153,7 +153,7 @@ spec:
         mcpServersApplication:
           name: mcp-servers
           path: gitops/mcp-servers
-          targetRevision: agentic
+          targetRevision: ${GIT_REVISION:-main}
 
         mcpServers:
           - id: mcp::bon-calculadora
@@ -179,7 +179,7 @@ spec:
         routerApplication:
           name: router
           path: gitops/rag-router
-          targetRevision: main
+          targetRevision: ${GIT_REVISION:-main}
 
         documentsConnection:
           awsAccessKeyId: ${MINIO_ACCESS_KEY}
