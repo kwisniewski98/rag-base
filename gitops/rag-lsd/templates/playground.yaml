@@ -55,7 +55,8 @@ spec:
   selector:
     app: "{{ .Values.app }}-playground"
   ports:
-    - port: 8501-tcp
+    - name: 8501-tcp
+      port: 8501
       targetPort: 8501
       protocol: TCP
   type: ClusterIP
