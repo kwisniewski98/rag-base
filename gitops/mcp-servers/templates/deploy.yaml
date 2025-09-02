@@ -71,6 +71,9 @@ spec:
               memory: {{ .resources.requests.memory | default "256mi" }}
             {{- end }}
           {{- end }}
+          env:
+            - name: BIND_ADDRESS
+              value: "0.0.0.0:{{ .port }}"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
