@@ -3,6 +3,13 @@ kind: Deployment
 metadata:
   name: "{{ .Values.app }}-playground"
   namespace: {{ .Values.namespace }}
+  labels:
+    app: "{{ .Values.app }}-playground"
+    app.kubernetes.io/component: "{{ .Values.app }}-playground"
+    app.kubernetes.io/instance: "{{ .Values.app }}-playground"
+    app.kubernetes.io/name: "{{ .Values.app }}-playground"
+    app.kubernetes.io/part-of: "{{ .Values.partOf }}"
+    app.openshift.io/runtime: "python"
 spec:
   replicas: 1
   selector:
