@@ -167,10 +167,11 @@ spec:
           - id: mcp::bon-calculadora
             provider_id: model-context-protocol
             vcs:
-              uri: https://github.com/alpha-hack-program/bon-calculadora-mcp-js.git
+              uri: https://github.com/alpha-hack-program/bon-calculadora-mcp-rs.git
               ref: main
               path: .
-            image: quay.io/atarazana/bon-calculadora-mcp-js:1.0.2
+            image: quay.io/atarazana/bon-calculadora-mcp-rs:1.0.2
+            runtime: "rust"
             mcp_transport: "sse"
             protocol: "http"
             host: bon-calculadora
