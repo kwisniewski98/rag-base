@@ -42,8 +42,9 @@ spec:
               ref: {{ .vcs.ref }}
               path: {{ .vcs.path }}
             image: {{ .image }}
-            mcp_transport: {{ .mcp_transport }}
-            protocol: {{ .protocol }}
+            mcp_transport: {{ .mcp_transport | default "sse" }}
+            runtime: {{ .runtime }}
+            protocol: {{ .protocol | default "http" }}
             host: {{ .host }}
             port: {{ .port }}
             uri: {{ .uri }}
