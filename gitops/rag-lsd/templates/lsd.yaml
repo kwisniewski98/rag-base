@@ -1,3 +1,4 @@
+---
 apiVersion: llamastack.io/v1alpha1
 kind: LlamaStackDistribution
 metadata:
@@ -89,3 +90,20 @@ spec:
       image: '{{ .Values.lsdImage }}'
     storage:
       size: 5Gi
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: "{{ .Values.app }}-route"
+  namespace: {{ .Values.namespace }}
+spec:
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: "{{ .Values.app }}-service"
+    weight: 100
+  wildcardPolicy: None

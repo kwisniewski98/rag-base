@@ -61,7 +61,6 @@ spec:
       protocol: TCP
   type: ClusterIP
 ---
-# Route
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
