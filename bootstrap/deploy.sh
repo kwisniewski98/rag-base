@@ -80,6 +80,7 @@ spec:
             image: quay.io/redhat-ai-services/modelcar-catalog:granite-3.3-8b-instruct
             maxModelLen: '23000'
             maxTokens: '4096'
+            externalAccess: true
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template
@@ -95,12 +96,19 @@ spec:
               max: '1'
               min: '1'
               productName: ${GPU_NAME}
+            args:
+              - '--enable-auto-tool-choice'
+              - '--tool-call-parser'
+              - 'granite'
+              - '--chat-template'
+              - '/app/data/template/tool_chat_template_granite.jinja'
           - name: llama-3-1-8b-w4a16
             displayName: Llama 3.1 8B
             model: RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16"
             image: quay.io/redhat-ai-services/modelcar-catalog:llama-3.2-8b-instruct-quantized.w4a16
             maxModelLen: '23000'
             maxTokens: '4096'
+            externalAccess: true
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template

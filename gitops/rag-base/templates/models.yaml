@@ -78,7 +78,7 @@ spec:
     nodeSelector:
       nvidia.com/gpu.product: {{ .accelerator.productName }}
     {{- end }}
-{{- if and .rawDeployment .externalAccess }}
+{{- if and (default true .rawDeployment) .externalAccess }}
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
