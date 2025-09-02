@@ -36,7 +36,7 @@ spec:
               cpu: 250m
               memory: 500Mi
           env:
-            - name: LLAMA_STACK_ENDPOINT \
+            - name: LLAMA_STACK_ENDPOINT
               value: http://{{ .Values.app }}-service:{{ .Values.lsdPort }}
 ---
 apiVersion: v1
