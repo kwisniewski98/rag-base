@@ -13,6 +13,8 @@ fmsOchestratorUrl: http://localhost
 lsdImage: quay.io/opendatahub/llama-stack:odh
 lsdPort: 8321
 
+lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
+
 lsdResources:
   limits:
     cpu: '2'
