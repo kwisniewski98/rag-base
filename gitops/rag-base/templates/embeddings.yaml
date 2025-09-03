@@ -128,7 +128,7 @@ spec:
         - '--max-model-len'
         - '{{ .maxModelLen }}'
         {{- end }}
-        {{- if contains 'w4a16' .Name }}
+        {{- if contains "w4a16" .Name }}
         - '--dtype'
         - float16
         {{- end }}
