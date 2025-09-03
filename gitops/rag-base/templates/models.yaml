@@ -106,6 +106,7 @@ metadata:
     opendatahub.io/template-name: "{{ .runtime.templateName }}"
     openshift.io/display-name: "{{ .displayName }}"
     opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    model: {{ .model }}
   name: {{ .name }}
   namespace: {{ $.Values.dataScienceProjectNamespace }}
   labels:
