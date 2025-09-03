@@ -129,7 +129,7 @@ spec:
         - '{{ .maxModelLen }}'
         {{- end }}
         {{/* If productName contains T4, then use float16 and tensor-parallel-size */}}
-        {{- if .gaudi.max > 1  }}
+        {{- if .gaudi.max  }}
         - '--tensor-parallel-size={{ .gaudi.max }}'
         {{- end }}
         - '--distributed-executor-backend=mp'
