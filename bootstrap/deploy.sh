@@ -68,6 +68,8 @@ spec:
                 requests:
                   cpu: '1'
                   memory: 4Gi
+            accelerator: {}
+
             gaudi:
               max: '1'
               min: '1'
@@ -91,6 +93,7 @@ spec:
                 requests:
                   cpu: '6'
                   memory: 24Gi
+            accelerator: {}
             gaudi:
               max: '1'
               min: '1'
@@ -118,6 +121,7 @@ spec:
                 requests:
                   cpu: '6'
                   memory: 24Gi
+            accelerator: {}
             gaudi:
               max: '1'
               min: '1'
