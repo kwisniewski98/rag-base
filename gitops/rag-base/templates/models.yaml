@@ -124,7 +124,7 @@ spec:
         - '{{ .maxModelLen }}'
         {{- end }}
         {{- /* If productName contains T4, then use float16 and tensor-parallel-size */ -}}
-        {{- if contains "w4a16" .Name }}
+        {{- if contains "w4a16" .name }}
         - '--dtype'
         - float16
         {{- end }}
