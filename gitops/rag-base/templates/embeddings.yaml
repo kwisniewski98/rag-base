@@ -129,10 +129,10 @@ spec:
         - '{{ .maxModelLen }}'
         {{- end }}
         {{/* If productName contains T4, then use float16 and tensor-parallel-size */}}
-        {{- if .accelerator.productName | regexMatch "T4" }}
+        {{- if .gaudi | regexMatch "T4" }}
         - '--dtype'
         - float16
-        - '--tensor-parallel-size={{ .accelerator.max }}'
+        - '--tensor-parallel-size={{ .gaudi.max }}'
         {{- end }}
         - '--distributed-executor-backend=mp'
         - '--trust-remote-code'
