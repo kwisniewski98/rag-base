@@ -12,10 +12,10 @@ if [ -z "$MINIO_ACCESS_KEY" ] || [ -z "$MINIO_SECRET_KEY" ] || [ -z "$MINIO_ENDP
   echo "Error: MinIO credentials are not set."
   exit 1
 fi
-if [ -z "$GPU_NAME" ]; then
-  echo "Error: GPU name is not set."
-  exit 1
-fi
+# if [ -z "$GPU_NAME" ]; then
+#   echo "Error: GPU name is not set."
+#   exit 1
+# fi
 
 # # Check if hf-creds.sh exists
 # if [ ! -f "./hf-creds.sh" ]; then
@@ -60,7 +60,7 @@ spec:
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template
-              image: quay.io/modh/vllm:rhoai-2.20-cuda
+              image: ${VLLM_IMAGE}
               resources:
                 limits:
                   cpu: '2'
@@ -68,10 +68,9 @@ spec:
                 requests:
                   cpu: '1'
                   memory: 4Gi
-            accelerator:
+            gaudi:
               max: '1'
               min: '1'
-              productName: ${GPU_NAME}
 
         models:
           - name: granite-3-3-8b
@@ -84,7 +83,7 @@ spec:
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template
-              image: quay.io/modh/vllm:rhoai-2.20-cuda
+              image: ${VLLM_IMAGE}
               resources:
                 limits:
                   cpu: '8'
@@ -92,10 +91,9 @@ spec:
                 requests:
                   cpu: '6'
                   memory: 24Gi
-            accelerator:
+            gaudi:
               max: '1'
               min: '1'
-              productName: ${GPU_NAME}
             args:
               - '--enable-auto-tool-choice'
               - '--tool-call-parser'
@@ -112,7 +110,7 @@ spec:
             runtime:
               templateName: vllm-serving-template
               templateDisplayName: vLLM Serving Template
-              image: quay.io/modh/vllm:rhoai-2.20-cuda
+              image: ${VLLM_IMAGE}
               resources:
                 limits:
                   cpu: '8'
@@ -120,10 +118,9 @@ spec:
                 requests:
                   cpu: '6'
                   memory: 24Gi
-            accelerator:
+            gaudi:
               max: '1'
               min: '1'
-              productName: ${GPU_NAME}
             args:
               - '--enable-auto-tool-choice'
               - '--tool-call-parser'

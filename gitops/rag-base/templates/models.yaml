@@ -43,10 +43,13 @@ spec:
       {{- end }}  
       resources:
         {{/* If any or accelator max or limits are set, then the limits will be set accordingly */}}
-        {{- if or .accelerator.max .runtime.resources.limits.cpu .runtime.resources.limits.memory }}
+        {{- if or .accelerator.max .gaudi.max .runtime.resources.limits.cpu .runtime.resources.limits.memory }}
         limits:
           {{- if .accelerator.max }}    
           nvidia.com/gpu: '{{ .accelerator.max }}'
+          {{- end }}
+          {{- if .gaudi.max }}    
+          habana.ai/gaudi: '{{ .gaudi.max }}'
           {{- end }}
           {{- if .runtime.resources.limits.cpu }}
           cpu: '{{ .runtime.resources.limits.cpu }}'
@@ -57,9 +60,12 @@ spec:
         {{- end }}
         requests:
           # If any or accelator min or requests are set, then the requests will be set accordingly
-          {{- if or .accelerator.min .runtime.resources.requests.cpu .runtime.resources.requests.memory }}
+          {{- if or .accelerator.min .gaudi.min .runtime.resources.requests.cpu .runtime.resources.requests.memory }}
           {{- if .accelerator.min }}
           nvidia.com/gpu: '{{ .accelerator.min }}'
+          {{- end }}
+          {{- if .gaudi.min }}    
+          habana.ai/gaudi: '{{ .gaudi.min }}'
           {{- end }}
           {{- if .runtime.resources.requests.cpu }}
           cpu: '{{ .runtime.resources.requests.cpu }}'
@@ -72,6 +78,12 @@ spec:
     tolerations:
       - effect: NoSchedule
         key: nvidia.com/gpu
+        operator: Exists
+    {{- end }}
+    {{- if .gaudi.min }}
+    tolerations:
+      - effect: NoSchedule
+        key: habana.ai/gaudi
         operator: Exists
     {{- end }}
     {{- if .accelerator.productName }}
