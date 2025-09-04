@@ -168,6 +168,9 @@ spec:
         timeoutSeconds: 5
         successThreshold: 1
         failureThreshold: 3
+          securityContext:
+      capabilities:
+        add: [ "SYS_NICE"]
   multiModel: false
   supportedModelFormats:
     - autoSelect: true
