@@ -151,7 +151,7 @@ spec:
           value: /tmp/hf_home
         - name: VLLM_CACHE_ROOT
           value: /tmp
-        - name: VLL_USE_V1
+        - name: VLLM_USE_V1
           value: 0
       image: '{{ .runtime.image }}'
       name: kserve-container
