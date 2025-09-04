@@ -141,6 +141,7 @@ spec:
         - '--chat-template'
         - '{{ .chatTemplate }}'
         {{- end }}
+        - '--task embed'
       command:
         - python
         - '-m'
@@ -150,6 +151,8 @@ spec:
           value: /tmp/hf_home
         - name: VLLM_CACHE_ROOT
           value: /tmp
+        - name: VLL_USE_V1
+          value: 0
       image: '{{ .runtime.image }}'
       name: kserve-container
       ports:
