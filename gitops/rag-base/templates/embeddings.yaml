@@ -141,7 +141,6 @@ spec:
         - '--chat-template'
         - '{{ .chatTemplate }}'
         {{- end }}
-        - '--task embed'
       command:
         - python
         - '-m'
