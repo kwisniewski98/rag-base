@@ -129,7 +129,7 @@ spec:
         - '--dtype'
         - float16
         {{- end }}
-        {{- if .gaudi.max  }}
+        {{- if .gaudi  }}
         - '--tensor-parallel-size={{ .gaudi.max }}'
         {{- end }}
         - '--distributed-executor-backend=mp'
