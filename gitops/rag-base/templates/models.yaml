@@ -43,9 +43,9 @@ spec:
       {{- end }}  
       resources:
         {{/* If any or accelator max or limits are set, then the limits will be set accordingly */}}
-        {{- if or .gaudi.max .runtime.resources.limits.cpu .runtime.resources.limits.memory }}
+        {{- if or .gaudi .runtime.resources.limits.cpu .runtime.resources.limits.memory }}
         limits:
-          {{- if .gaudi.max }}    
+          {{- if .gaudi }}    
           habana.ai/gaudi: '{{ .gaudi.max }}'
           {{- end }}
           {{- if .runtime.resources.limits.cpu }}
@@ -57,8 +57,8 @@ spec:
         {{- end }}
         requests:
           # If any or accelator min or requests are set, then the requests will be set accordingly
-          {{- if or  .gaudi.min .runtime.resources.requests.cpu .runtime.resources.requests.memory }}
-          {{- if .gaudi.min }}    
+          {{- if or  .gaudi .runtime.resources.requests.cpu .runtime.resources.requests.memory }}
+          {{- if .gaudi }}    
           habana.ai/gaudi: '{{ .gaudi.min }}'
           {{- end }}
           {{- if .runtime.resources.requests.cpu }}
@@ -68,7 +68,7 @@ spec:
           memory: '{{ .runtime.resources.requests.memory }}'
           {{- end }}
           {{- end }}
-    {{- if .gaudi.min }}
+    {{- if .gaudi }}
     tolerations:
       - effect: NoSchedule
         key: habana.ai/gaudi
